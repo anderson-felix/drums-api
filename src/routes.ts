@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-import SessionController from './controllers/SessionController';
+import * as SessionController from './controllers/Session';
 import auth from './middlewares/auth';
 
 const routes = Router();
@@ -8,8 +8,8 @@ const routes = Router();
 routes.post('/register', SessionController.store);
 routes.post('/session', SessionController.login);
 
-routes.use(auth); // All routes authenticated from here
-
-routes.put('/session', SessionController.update);
+routes.get('/session', auth, SessionController.getLogged);
+routes.put('/session', auth, SessionController.update);
+routes.post('/logout', auth, SessionController.Logout);
 
 export default routes;

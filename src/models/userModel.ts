@@ -35,6 +35,6 @@ export class User {
   }
 }
 
-export const UserModel = getModelForClass(User);
+export const userModel = getModelForClass(User);
 
-UserModel.db = db;
+userModel.db = db;
