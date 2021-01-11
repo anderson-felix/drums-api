@@ -11,7 +11,7 @@ export const _delete = async (req: Request, res: Response) => {
   const user_id = user._id;
 
   const { track } = req.params;
-  const media = await mediaModel.findById(track);
+  const media = await mediaModel.findById(track).exec();
   if (!media) {
     return res.status(400).json({ error: 'Media not exists' });
   }
@@ -20,7 +20,7 @@ export const _delete = async (req: Request, res: Response) => {
   }
 
   try {
-    await mediaModel.findByIdAndDelete(track);
+    await mediaModel.findByIdAndDelete(track).exec();
   } catch (err) {
     throw new Error(err);
   }

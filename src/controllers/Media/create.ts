@@ -20,7 +20,7 @@ export const create = async (req: Request, res: Response) => {
     return res.status(400).json(error);
   }
   const { title, duration, urlS3, price, disponible, image } = req.body;
-  const user = await userModel.findOne({ _id: req.userId }).exec();
+  const user = await userModel.findById(req.userId).exec();
   if (!user) {
     throw new Error('Unauthorized user');
   }

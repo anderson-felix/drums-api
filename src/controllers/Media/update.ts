@@ -19,24 +19,24 @@ export const update = async (req: Request, res: Response) => {
   } catch (error) {
     return res.status(400).json(error);
   }
-  try {
-    const media = await mediaModel.findById({ _id: req.params.id });
-    if (!media) return res.json({ error: 'Media invalid' });
-    const media_id = media.userId;
+  const media = await mediaModel.findById(req.params.id).exec();
+  if (!media) return res.json({ error: 'Media invalid' });
+  const media_id = media.userId;
 
-    const user = await userModel.findById({ _id: media_id });
-    if (!user) return res.json({ error: 'User invalid' });
-    const user_id = req.userId;
+  const user = await userModel.findById(media_id).exec();
+  if (!user) return res.json({ error: 'User invalid' });
+  const user_id = req.userId;
 
-    if (user_id != user._id)
-      return res.status(401).json({ error: 'Unauthorized' });
+  if (user_id != user._id)
+    return res.status(401).json({ error: 'Unauthorized' });
 
-    console.log(media);
-  } catch (err: any) {
-    res.json({ error: err });
-  }
+  console.log(media);
 
-  await mediaModel.findByIdAndUpdate(req.params.id, req.body);
+  const newMedia = await mediaModel
+    .findByIdAndUpdate(req.params.id, req.body)
+    .exec();
 
-  return res.json({ ok: true });
+  const result = {};
+
+  return res.status(200).json({ updated: newMedia?.title });
 };

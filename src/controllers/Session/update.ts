@@ -8,7 +8,6 @@ import { authToken } from '../../utils/authToken';
 
 export const update = async (req: Request, res: Response) => {
   const {
-    email,
     password,
     newEmail,
     newPassword,
@@ -18,7 +17,6 @@ export const update = async (req: Request, res: Response) => {
   } = req.body;
 
   const schema = yup.object().shape({
-    email: yup.string().email('Email is not valid').required(),
     password: yup.string().required().strict(),
     newEmail: yup.string().email('Email is not valid'),
     newName: yup.string().strict(),
@@ -54,49 +52,46 @@ export const update = async (req: Request, res: Response) => {
 
   var dataView = {};
 
-  const user = await userModel.findOne({ email }).exec();
-  const user_id = user?._id;
-
+  const user = await userModel.findById(req.userId).exec();
   if (!user) {
     return res.status(400).json({ error: 'User not exists' });
   }
+
+  const user_id = user._id;
+
   if (!(await user.check(password))) {
     return res.status(400).json({ error: 'Password invalid' });
   }
 
   if (newEmail) {
+    const email = await userModel.findOne({ email: newEmail }).exec();
+    if (email) {
+      return res.status(400).json({ error: 'Email already exists' });
+    }
     Object.assign(dataView, { new_email: newEmail });
 
-    await userModel.findByIdAndUpdate({ _id: user_id }, { email: newEmail });
-    console.log('email : [UPDATE]');
+    await userModel.findByIdAndUpdate(user_id, { email: newEmail }).exec();
   }
   if (newPassword) {
     const passwordHash = await bcrypt.hash(newPassword, 10);
 
     Object.assign(dataView, { new_password: passwordHash });
 
-    await userModel.findByIdAndUpdate(
-      { _id: user_id },
-      { password: passwordHash },
-    );
-
-    console.log('password : [UPDATE]');
+    await userModel
+      .findByIdAndUpdate(user_id, { password: passwordHash })
+      .exec();
   }
   if (newName) {
     Object.assign(dataView, { new_name: newName });
 
-    await userModel.findByIdAndUpdate({ _id: user_id }, { name: newName });
-    console.log('name : [UPDATE]');
+    await userModel.findByIdAndUpdate(user_id, { name: newName }).exec();
   }
   if (newBirthDate) {
     Object.assign(dataView, { new_birth_date: newBirthDate });
 
-    await userModel.findByIdAndUpdate(
-      { _id: user_id },
-      { birthDate: newBirthDate },
-    );
-
-    console.log('birthdate : [UPDATE]');
+    await userModel
+      .findByIdAndUpdate(user_id, { birthDate: newBirthDate })
+      .exec();
   }
 
   return res.status(201).json({ updates: dataView });
