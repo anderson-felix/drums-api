@@ -7,4 +7,5 @@ mongoose.connect(
     useUnifiedTopology: true,
   },
 );
+console.log('MONGO [OK]');
 export const db = mongoose.connection;

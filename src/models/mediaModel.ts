@@ -11,8 +11,11 @@ import { db } from '../utils/db';
 @modelOptions({ schemaOptions: { collection: 'media' } })
 @plugin(AutoIncrementID, { startAt: 1, incrementBy: 1, field: 'id' })
 export class Media {
-  @prop({ type: Number })
+  @prop({ type: Number, primary: true })
   public id: number;
+
+  @prop({ type: String, unique: true })
+  userId: string;
 
   @prop({ type: String, required: true })
   title: string;
@@ -28,6 +31,9 @@ export class Media {
 
   @prop({ type: Boolean, required: true, default: true })
   disponible: boolean;
+
+  @prop({ type: String })
+  image: string;
 }
 
 export const mediaModel = getModelForClass(Media);

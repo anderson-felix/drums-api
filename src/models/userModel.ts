@@ -12,7 +12,7 @@ import { db } from '../utils/db';
 @modelOptions({ schemaOptions: { collection: 'users' } })
 @plugin(AutoIncrementID, { startAt: 1, incrementBy: 1, field: 'id' })
 export class User {
-  @prop({ type: Number })
+  @prop({ type: Number, unique: true })
   public id: number;
 
   @prop({ required: true, unique: true, type: String })
