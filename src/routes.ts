@@ -14,7 +14,8 @@ routes.put('/session', auth, SessionController.update);
 
 routes.post('/logout', auth, SessionController.Logout);
 
-routes.post('/media', MediaController.store);
-routes.put('/media', MediaController.update);
+routes.post('/media', auth, MediaController.create);
+routes.put('/media/:id', auth, MediaController.update);
+routes.get('/media', auth, MediaController.read);
 
 export default routes;
