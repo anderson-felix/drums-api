@@ -17,5 +17,6 @@ routes.post('/logout', auth, SessionController.Logout);
 routes.post('/media', auth, MediaController.create);
 routes.put('/media/:id', auth, MediaController.update);
 routes.get('/media', auth, MediaController.read);
+routes.delete('/media/:track', auth, MediaController._delete);
 
 export default routes;

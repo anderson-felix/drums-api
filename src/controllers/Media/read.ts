@@ -9,6 +9,7 @@ export const read = async (req: Request, res: Response) => {
     return res.status(401).json({ error: 'User invalid' });
   }
   const user_id = user._id;
+
   const media_id = await mediaModel.find({ userId: user_id });
   if (!media_id) {
     return res.status(401).json({ error: 'Media invalid' });
