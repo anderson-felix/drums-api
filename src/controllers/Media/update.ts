@@ -36,7 +36,5 @@ export const update = async (req: Request, res: Response) => {
     .findByIdAndUpdate(req.params.id, req.body)
     .exec();
 
-  const result = {};
-
   return res.status(200).json({ updated: newMedia?.title });
 };
