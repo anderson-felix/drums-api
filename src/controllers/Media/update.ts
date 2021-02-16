@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
 import * as yup from 'yup';
 
-import { mediaModel } from '../../models/mediaModel';
 import { userModel } from '../../models/userModel';
+import { mediaModel } from '../../models/mediaModel';
 
 export const update = async (req: Request, res: Response) => {
   const schema = yup.object().shape({
