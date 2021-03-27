@@ -1,12 +1,16 @@
 import { Router } from 'express';
+import { celebrate, Segments, Joi } from 'celebrate';
 
-import * as SessionController from './controllers/Session';
+import * as SessionController from './controllers/User';
 import * as MediaController from './controllers/Media';
+
+import UserController from './controllers/User/UserController';
 import auth from './middlewares/auth';
 
 const routes = Router();
+const userController = new UserController();
 
-routes.post('/register', SessionController.store);
+routes.post('/register', userController.create); //OK
 
 routes.post('/session', SessionController.login);
 routes.get('/session', auth, SessionController.getLogged);
