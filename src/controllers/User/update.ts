@@ -3,7 +3,7 @@ import * as yup from 'yup';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 
-import { userModel } from '../../models/userModel';
+import { userModel } from '../../models/User';
 import { authToken } from '../../utils/authToken';
 
 export const update = async (req: Request, res: Response) => {

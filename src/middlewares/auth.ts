@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 import cookie from 'cookie';
 
 import { authToken } from '../utils/authToken';
-import { userModel } from '../models/userModel';
+import { userModel } from '../models/User';
 
 declare module 'express-serve-static-core' {
   export interface Request {

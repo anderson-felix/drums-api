@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import * as yup from 'yup';
 
-import { userModel } from '../../models/userModel';
+import { userModel } from '../../models/User';
 import { mediaModel } from '../../models/mediaModel';
 
 export const update = async (req: Request, res: Response) => {

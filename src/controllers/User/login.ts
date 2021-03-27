@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import * as yup from 'yup';
 import jwt from 'jsonwebtoken';
 
-import { userModel } from '../../models/userModel';
+import { userModel } from '../../models/User';
 import { authToken } from '../../utils/authToken';
 
 export const login = async (req: Request, res: Response) => {

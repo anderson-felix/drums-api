@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 
 import { mediaModel } from '../../models/mediaModel';
-import { userModel } from '../../models/userModel';
+import { userModel } from '../../models/User';
 
 export const read = async (req: Request, res: Response) => {
   const user = await userModel.findById(req.userId).exec();
