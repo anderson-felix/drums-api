@@ -1,2 +1,10 @@
-criar uma função de validação para campos muito ulilizados
-criar os models e integrações das midias
+[ ] - Refatoração (USER)
+  [ ] - create 
+  [ ] - update
+  [ ] - session
+
+[ ] - Refatoração (MODELS)
+  [ ] - criar métodos genéricos
+  [ ] - usar postgres ? ou os dois ?
+
+  
